@@ -1,0 +1,246 @@
+Example 1: Display "Hello World" in a Web Page
+Objective: Set up a web server and display a custom message.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "Hello World! Welcome to my EC2 instance." > /var/www/html/index.html
+Steps to Test:
+
+After the instance is up, copy its Public IP.
+Open a browser and enter http://<Public_IP>.
+You should see the "Hello World" message.
+Example 2: Install and Start Nginx
+Objective: Install and start an Nginx web server on launch.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+apt update -y
+apt install -y nginx
+systemctl start nginx
+systemctl enable nginx
+echo "Welcome to Nginx Server" > /var/www/html/index.html
+For Ubuntu Instances: Use apt instead of yum.
+
+Example 3: Create a User and Set a Password
+Objective: Automate user creation on an EC2 instance.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+useradd devops_user
+echo "devops_user:password123" | chpasswd
+echo "User created successfully!" > /home/ec2-user/message.txt
+Steps to Test:
+
+SSH into the instance.
+Switch to the user with su - devops_user.
+Example 4: Install Docker
+Objective: Install Docker on an instance during boot.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+yum update -y
+yum install -y docker
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ec2-user
+echo "Docker Installed Successfully" > /home/ec2-user/docker_installed.txt
+Steps to Test:
+
+SSH into the instance.
+Verify Docker installation using docker --version.
+Example 5: Pull Code from GitHub
+Objective: Automate pulling code from a GitHub repository.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+yum update -y
+yum install -y git httpd
+systemctl start httpd
+systemctl enable httpd
+cd /var/www/html
+git clone https://github.com/<your-repo>/<your-project>.git
+Steps to Test:
+
+Replace the GitHub URL with your repository.
+Open the public IP in the browser to check the project files.
+Example 6: Install Java and Print Java Version
+Objective: Install Java and check its version.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+yum update -y
+yum install -y java-1.8.0-openjdk
+echo "Java Installed Successfully!" > /home/ec2-user/java_installed.txt
+java -version > /home/ec2-user/java_version.txt
+Steps to Test:
+
+SSH into the instance.
+Check the java_version.txt file for Java version details.
+How to Practice Step-by-Step
+Start Small: Begin with scripts to install software like Apache or Nginx.
+Add Complexity: Move to tasks like creating users, installing Docker, or pulling code.
+Use Different OS: Practice on both Amazon Linux 2 and Ubuntu EC2 instances.
+Experiment with Errors: Purposely misspell commands or use unsupported ones to debug and learn.
+Pro Tip for Interview
+If asked, you can say:
+"I have practiced User Data scripts for:
+
+Installing web servers like Apache/Nginx.
+Automating Docker installation.
+Pulling code from GitHub.
+Creating users and automating tasks."
+This shows confidence and hands-on experience! 😊
+
+
+
+
+
+
+You said:
+how about mounting files
+ChatGPT said:
+ChatGPT
+Mounting Filesystems using User Data
+Mounting a filesystem is a common task to attach additional storage (e.g., EBS volumes) to an EC2 instance. You can automate mounting through User Data scripts.
+
+Here’s a step-by-step approach with examples to practice mounting files:
+
+Example 1: Mounting an EBS Volume at Boot
+Objective: Attach a secondary EBS volume and mount it to a specific directory.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+# Update the system
+yum update -y
+
+# Format the EBS volume (assuming it's /dev/xvdf)
+mkfs -t ext4 /dev/xvdf
+
+# Create a mount point
+mkdir /mnt/data
+
+# Mount the EBS volume
+mount /dev/xvdf /mnt/data
+
+# Persist the mount in /etc/fstab
+echo "/dev/xvdf /mnt/data ext4 defaults,nofail 0 2" >> /etc/fstab
+
+# Verify the mount
+df -h > /home/ec2-user/mount_status.txt
+Steps to Test:
+
+Launch an EC2 instance with an additional EBS volume (e.g., /dev/sdf maps to /dev/xvdf).
+Use the above script as User Data.
+SSH into the instance.
+Run df -h to confirm the mount.
+Check /mnt/data to see the mounted volume.
+Example 2: Mounting an S3 Bucket using s3fs
+Objective: Mount an Amazon S3 bucket to an EC2 instance.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+# Update the system
+yum update -y
+
+# Install dependencies
+yum install -y epel-release
+yum install -y s3fs-fuse
+
+# Configure S3 credentials
+echo "ACCESS_KEY_ID:SECRET_ACCESS_KEY" > /etc/passwd-s3fs
+chmod 600 /etc/passwd-s3fs
+
+# Create a mount point
+mkdir /mnt/s3bucket
+
+# Mount the S3 bucket (replace 'my-bucket-name' with your bucket)
+s3fs my-bucket-name /mnt/s3bucket -o passwd_file=/etc/passwd-s3fs -o url=https://s3.amazonaws.com -o use_path_request_style
+
+# Persist the mount in /etc/fstab
+echo "my-bucket-name /mnt/s3bucket fuse.s3fs _netdev,passwd_file=/etc/passwd-s3fs,url=https://s3.amazonaws.com 0 0" >> /etc/fstab
+
+# Verify the mount
+df -h > /home/ec2-user/s3_mount_status.txt
+Steps to Test:
+
+Replace ACCESS_KEY_ID and SECRET_ACCESS_KEY with your AWS credentials.
+Replace my-bucket-name with your S3 bucket name.
+Launch the instance.
+SSH into the instance.
+Run df -h to confirm the S3 bucket is mounted.
+Example 3: Mounting an NFS Share
+Objective: Mount an NFS share to an EC2 instance automatically.
+
+Script:
+
+bash
+Copy code
+#!/bin/bash
+# Update the system
+yum update -y
+yum install -y nfs-utils
+
+# Create a mount point
+mkdir /mnt/nfs
+
+# Mount the NFS share (replace NFS_SERVER and EXPORT_PATH with your NFS details)
+mount -t nfs NFS_SERVER:/EXPORT_PATH /mnt/nfs
+
+# Persist the mount in /etc/fstab
+echo "NFS_SERVER:/EXPORT_PATH /mnt/nfs nfs defaults 0 0" >> /etc/fstab
+
+# Verify the mount
+df -h > /home/ec2-user/nfs_mount_status.txt
+Steps to Test:
+
+Replace NFS_SERVER with the IP or DNS of the NFS server.
+Replace EXPORT_PATH with the exported directory path.
+Launch the instance.
+SSH into the instance.
+Run df -h to confirm the mount.
+Practice Steps for Beginners
+Create EBS Volumes:
+
+Add an extra EBS volume when launching an instance.
+Use the User Data script to format and mount it.
+Set up S3 Buckets:
+
+Create an S3 bucket and install s3fs to mount it using User Data.
+Use NFS for Practice:
+
+If you have access to an NFS server, automate mounting to EC2.
+Modify and Test Scripts:
+
+Change mount points or devices.
+Reboot the instance to test if the mount persists.
+Explore Errors:
+
+Practice troubleshooting issues like incorrect paths or missing permissions.
