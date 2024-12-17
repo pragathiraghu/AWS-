@@ -1,0 +1,9 @@
+How to Answer in an Interview?
+What is a cross-account role?
+"A cross-account role allows users or services in one AWS account to securely access resources in another AWS account by assuming an IAM role."
+
+Why do we use cross-account roles?
+"We use it to securely share resources across AWS accounts, for example, allowing Jenkins in one account to deploy code to another account, without needing to share permanent credentials."
+
+Can you give a project example?
+"Yes. In a project, we had two AWS accounts: one for DevOps tools like Jenkins (Account A) and one for production resources (Account B). To allow Jenkins in Account A to deploy code to EC2 instances in Account B, we created a cross-account IAM role in Account B. Jenkins assumed this role using AWS CLI to generate temporary credentials and deploy the application."
