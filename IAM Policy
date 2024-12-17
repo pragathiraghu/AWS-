@@ -12,7 +12,9 @@ Types:
 Managed Policies:
 AWS Managed Policies: Predefined policies created by AWS (e.g., AdministratorAccess, AmazonS3ReadOnlyAccess).
 Customer Managed Policies: Custom policies created and managed by you.
+
 Inline Policies: Policies directly embedded within a user, group, or role.
+[inline policy cannot cpied  or resude and once the instance is deleted policy also gets deleted]
 
 *****************2. Resource-based Policies******************
 These are attached to AWS resources like S3 buckets, DynamoDB tables, or Lambda functions.
@@ -34,3 +36,6 @@ $$$$$$$$$$$$$$$$$$More than one policy can be attached to a user or a group at t
 $$$$$$$$$$$$$$$$$$$$Policies can’t be attached directly to resources like EC2 instance, S3 bucket etc.$$$$$$$$$$$$
 
 $$$$$$$$$$$$$$$$$$$$$You can make use of AWS Policy Generator - https://awspolicygen.s3.amazonaws.com/policygen.html$$$$$$$$$$$$$$
+
+
+[inline policy cannot cpied  or resude and once the instance is deleted policy also gets deleted]
