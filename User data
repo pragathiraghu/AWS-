@@ -1,0 +1,43 @@
+What is User Data in AWS EC2?
+User Data in AWS refers to scripts or commands that you provide when launching an EC2 instance. This data allows you to automate tasks during the instance's boot process.
+
+Purpose of User Data
+Bootstrapping Instances: Automatically configure the instance during its launch.
+Installing Software: Install packages like Apache, Nginx, Java, or other required tools.
+Running Custom Scripts: Execute custom commands to set up the environment.
+Configuring Services: Start or enable services like a web server or database.
+Deploying Applications: Pull code from GitHub or set up a deployment process.
+When to Use User Data?
+You go for User Data in the following situations:
+
+Initial Setup Automation: You need to save time configuring an instance manually.
+Consistency: Ensure the same configuration for all instances.
+Application Deployment: Automate deploying your application on launch.
+On-Demand Setup: Spin up instances with pre-defined setups when scaling infrastructure.
+
+How to Answer in Interviews (Simple & Crisp)
+"User Data is a script or set of commands that I provide while launching an EC2 instance. It helps automate tasks like software installation, configuring services, or deploying code during the instance's boot. 
+For example, I can use User Data to install a web server like Apache and start it automatically when the instance is created."
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "Welcome to My Web Server" > /var/www/html/index.html
+
+
+This script:
+
+Updates the system packages.
+Installs Apache (httpd).
+Starts and enables the web server.
+Adds a simple welcome message to the index page.
+
+
+********Key Points to Highlight in an Interview*********
+What: User Data automates tasks on instance launch.
+Why: Saves time, ensures consistency, and enables automation.
+How: You write scripts (Bash for Linux, PowerShell for Windows).
+Example: Installing software like Apache or deploying an application.
+
