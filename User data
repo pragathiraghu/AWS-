@@ -41,3 +41,8 @@ Why: Saves time, ensures consistency, and enables automation.
 How: You write scripts (Bash for Linux, PowerShell for Windows).
 Example: Installing software like Apache or deploying an application.
 
+********Launch an EC2 Instance********
+Go to the AWS EC2 console.
+Launch a new instance.
+Add User Data scripts in the "Advanced Details" section under "Launch Wizard."
+
