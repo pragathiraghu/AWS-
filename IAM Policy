@@ -28,3 +28,9 @@ Use Case: When delegating limited admin control to users.
 These are used with AWS Organizations to control permissions at the account or organizational unit (OU) level.
 SCPs do not grant permissions but limit what can be done, even if a user has full permissions through identity-based policies.
 Example: Denying access to specific regions for all accounts in an OU.
+
+$$$$$$$$$$$$$$$$$$More than one policy can be attached to a user or a group at the same time.$$$$$$$$$$$$$$$$$$$$
+
+$$$$$$$$$$$$$$$$$$$$Policies can’t be attached directly to resources like EC2 instance, S3 bucket etc.$$$$$$$$$$$$
+
+$$$$$$$$$$$$$$$$$$$$$You can make use of AWS Policy Generator - https://awspolicygen.s3.amazonaws.com/policygen.html$$$$$$$$$$$$$$
