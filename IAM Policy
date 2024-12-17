@@ -1,0 +1,30 @@
+
+wht are different types of polices in IAM???
+
+
+In AWS IAM (Identity and Access Management), policies are rules that define permissions for users, groups, and roles to access AWS resources. 
+There are four main types of IAM policies:
+
+***********1. Identity-based Policies*****************
+These are attached to IAM users, groups, or roles to control their permissions.
+They allow or deny access to AWS services and resources.
+Types:
+Managed Policies:
+AWS Managed Policies: Predefined policies created by AWS (e.g., AdministratorAccess, AmazonS3ReadOnlyAccess).
+Customer Managed Policies: Custom policies created and managed by you.
+Inline Policies: Policies directly embedded within a user, group, or role.
+
+*****************2. Resource-based Policies******************
+These are attached to AWS resources like S3 buckets, DynamoDB tables, or Lambda functions.
+They define who can access the resource and what actions are allowed.
+Example: An S3 bucket policy that allows a specific user or account to access the bucket.
+
+********************3. Permissions Boundaries*****************
+These are policies that set the maximum permissions for an IAM user or role.
+Even if an identity-based policy grants permissions, a permissions boundary limits what actions they can perform.
+Use Case: When delegating limited admin control to users.
+
+*********************4. Service Control Policies (SCPs)******************
+These are used with AWS Organizations to control permissions at the account or organizational unit (OU) level.
+SCPs do not grant permissions but limit what can be done, even if a user has full permissions through identity-based policies.
+Example: Denying access to specific regions for all accounts in an OU.
