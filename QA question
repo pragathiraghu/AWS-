@@ -1,0 +1,94 @@
+Example for Interviews:
+Question: "How does EBS scale?"
+
+Answer: "EBS scales manually. You can increase the size of an EBS volume as needed using the AWS Console, CLI, or API. Its performance (IOPS and throughput) scales with the size for certain volume types like gp3 or io2. For additional capacity, you can attach multiple EBS volumes to an instance. However, unlike EFS, EBS does not scale automatically."
+
+Would you like practical steps on resizing an EBS volume or examples of volume types?
+
+
+
+
+
+
+You said:
+my ebs volume is 10gb wht will be the size of snapshot
+ChatGPT said:
+ChatGPT
+The size of an EBS snapshot will depend on the actual data stored in the volume, not the volume size itself. Here's how it works:
+
+Snapshot Size:
+If the Volume is Empty:
+
+If your 10 GB EBS volume has no data stored (completely empty), the snapshot size will be minimal, as only metadata for the empty volume is saved.
+If Data is Stored:
+
+The snapshot size will be approximately equal to the size of the data stored on the volume, not the total 10 GB volume size.
+For example:
+If the volume has 2 GB of data, the snapshot will be around 2 GB.
+If the volume has 8 GB of data, the snapshot will be around 8 GB.
+Incremental Snapshots:
+
+EBS snapshots are incremental.
+After the first snapshot, subsequent snapshots only store changes (differences) made since the last snapshot. This reduces the storage required for later snapshots.
+Key Points:
+Snapshots are stored in Amazon S3 and are billed based on the actual data saved.
+Deleted data on the volume (but not zeroed out) might still occupy space in the snapshot, as AWS does not automatically recognize unused blocks as empty.
+Interview-Ready Answer:
+Question: "If my EBS volume is 10 GB, what will be the size of the snapshot?"
+
+Answer: "The size of the snapshot depends on the amount of data stored on the volume. If the volume is empty, the snapshot size will be minimal. If there’s 6 GB of data on the 10 GB volume, the snapshot will be approximately 6 GB. Since snapshots are incremental, only the first snapshot saves all data, while subsequent snapshots save only the changes."
+
+Would you like me to explain incremental snapshots further?
+
+
+
+
+
+
+You said:
+yes
+ChatGPT said:
+ChatGPT
+Incremental Snapshots in EBS Explained:
+EBS snapshots are incremental, which means they are designed to save storage space and reduce costs by storing only the differences (changes) made to the volume since the last snapshot. Here’s how it works:
+
+How Incremental Snapshots Work:
+First Snapshot:
+
+The initial snapshot of a volume is a full backup.
+It captures all the data stored on the volume at the time of the snapshot.
+Subsequent Snapshots:
+
+Each subsequent snapshot captures only the changes made to the volume since the last snapshot.
+Unchanged data is referenced from the previous snapshot instead of being duplicated.
+Example:
+
+Assume you have a 10 GB volume:
+Snapshot 1: The volume has 4 GB of data → Snapshot size is 4 GB.
+After adding 2 GB of data and creating Snapshot 2:
+Snapshot 2 only saves the 2 GB of new data.
+Total storage in S3 is 4 GB (Snapshot 1) + 2 GB (Snapshot 2).
+Data Integrity:
+
+Despite being incremental, each snapshot behaves like a full backup.
+When you restore from a snapshot, AWS reconstructs the volume using data from the latest snapshot and any referenced snapshots.
+Key Advantages of Incremental Snapshots:
+Storage Efficiency:
+Reduces storage costs as only changes are stored after the first snapshot.
+Faster Backups:
+Smaller snapshots mean quicker creation times for subsequent backups.
+Durable and Reliable:
+Snapshots are stored in Amazon S3, which is designed for high durability.
+Things to Remember About Incremental Snapshots:
+Snapshot Chain:
+AWS manages the chain of snapshots for you. You don’t need to worry about tracking dependencies.
+Deleting Snapshots:
+If you delete an earlier snapshot, AWS ensures no data is lost by retaining the blocks still needed by later snapshots.
+Cost Savings:
+You are billed only for the data stored in the snapshots, not the original volume size.
+Interview-Ready Answer:
+Question: "What are incremental snapshots in EBS, and how do they work?"
+
+Answer: "Incremental snapshots in EBS store only the changes made to the volume since the last snapshot, rather than duplicating the entire volume. The first snapshot is a full backup, and subsequent snapshots save space by capturing only modified data. Each snapshot still acts like a full backup, as AWS references previous snapshots to reconstruct the volume during restoration. This approach reduces storage costs and speeds up snapshot creation."
+
+Let me know if you'd like a visual analogy or a real-world scenario for better clarity!
