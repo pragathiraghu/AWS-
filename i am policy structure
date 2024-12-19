@@ -1,0 +1,28 @@
+What is IAM?
+IAM stands for Identity and Access Management, a service in AWS that helps you securely control access to resources. It allows you to manage users, groups, roles, and permissions to ensure only authorized entities can access specific AWS resources.
+
+Explain its policy structure:
+IAM policies are JSON documents that define permissions. They have the following structure:
+
+Version: Specifies the policy language version (e.g., "2012-10-17").
+Statement: The core component, which can contain multiple statements. Each statement includes:
+Effect: Allow or Deny the action.
+Action: Specifies the operations (e.g., s3:ListBucket).
+Resource: Defines the AWS resources (e.g., arn:aws:s3:::my-bucket).
+Condition (optional): Adds conditions for the policy (e.g., IP restrictions).
+
+In IAM, the Principal refers to the entity that is allowed or denied access to resources. A principal can be:
+
+Users (human users in AWS or federated users).
+Roles (used for services or cross-account access).
+AWS Services (e.g., Lambda, EC2).
+Key Points about Principal:
+Who is the Principal?
+The Principal is specified in the policy and determines "who" is allowed to perform the specified actions.
+
+Where is it used?
+The Principal is mostly used in resource-based policies (e.g., S3 bucket policies, Lambda function policies) to define the entity that can access the resource.
+
+In Summary:
+The Principal key defines who is allowed or denied access to a resource, and the value is typically an ARN or identifier that refers to an IAM user, role, service, or 
+federated identity.
