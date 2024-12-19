@@ -1,0 +1,12 @@
+"Mounting is the process of making a storage device accessible to the operating system by attaching it to a directory . Here’s how I would perform the mounting process step-by-step:
+
+Check Attached Devices: Use the lsblk command to list block devices and identify the unmounted volume.
+Format the Volume: If the volume is new, I would format it using mkfs.ext4 or another appropriate file system.
+Create a Mount Point: I would create a directory using mkdir, such as /mnt/mydata, where the volume will be mounted.
+Mount the Volume: Use the mount command, for example: sudo mount /dev/xvdf /mnt/mydata.
+Verify the Mount: Check if the volume is mounted using the df -h command.
+Make the Mount Persistent (Optional): To ensure the mount persists after reboot, I would update the /etc/fstab file with the device details.
+This process ensures that the volume is properly mounted and available for use in the file system."
+
+mount point 
+mount point is a point where ur volume will be mounted to
