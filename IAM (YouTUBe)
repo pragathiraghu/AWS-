@@ -90,3 +90,40 @@ Use Case: Accessing specific resources in another AWS account when roles aren’
 Example:
 An IAM user is created with restricted permissions.
 The user’s credentials are shared for accessing another account’s S3 bucket or DynamoDB table.
+
+1. Provide Console Access (Optional)
+What it Means: This option allows the user to log in to the AWS Management Console using a username and password.
+
+When to Choose This:
+
+You are creating the user for a person (e.g., a developer, admin, or tester) who needs to:
+Access AWS services using the web interface.
+Perform manual tasks in AWS (e.g., launching EC2 instances, configuring S3 buckets).
+Example: A developer needs to access the AWS Management Console to create Lambda functions. Enable this option and set a password for the user.
+
+2. Programmatic Access (Optional)
+What it Means: This option creates Access Keys (Access Key ID and Secret Access Key) for programmatic interactions with AWS services via:
+
+AWS CLI
+AWS SDKs
+APIs
+When to Choose This:
+
+The user is an application, script, or automation tool that needs to:
+Access AWS services.
+Run tasks automatically (e.g., deploying infrastructure using Terraform).
+The user is a person who needs programmatic access for tools like AWS CLI.
+Example: You are creating an IAM user for a CI/CD pipeline script to deploy applications to EC2 instances. Enable this option to generate access keys.
+
+When to Skip These Options
+Skip Console Access:
+
+If the user doesn’t need to log in to the AWS web interface.
+Example: An IAM user for an automation script only needs programmatic access.
+Skip Programmatic Access:
+
+If the user will only perform tasks manually via the AWS Management Console.
+Example: A tester logs in to check CloudWatch logs but doesn’t use automation tools.
+Best Practices
+Use IAM Identity Center (AWS SSO) instead of manual IAM users for console access if you manage multiple users or accounts.
+Avoid enabling both options unless the user explicitly needs both.
