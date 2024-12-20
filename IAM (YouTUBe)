@@ -1,0 +1,92 @@
+if account id is visible and has acces to all resources account,security credentials ,billing is root user
+as per standards we should not use much root useer
+Root User has the permissions to 
+for 
+**IAM creating user groups and roles
+**billing 
+**resources
+steps to create user
+* IAM
+*user
+*create user 
+( name it (The user name can have up to 64 characters. Valid characters: A-Z, a-z, 0-9, and + = , . @ _ - (hyphen))
+add user
+next
+user gets created 
+once the user gets created ARN generates iam id with username given
+****to login as user u hve created***
+security crenditial
+enable console acces 
+either u can go for custom password or auto generated password 
+when i log in as iam user i will gwt switch role option
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "AlowS3access",
+			"Effect": "Allow",
+			"Action": "s3:*",
+			"Resource": "*"
+		}
+	]
+}
+first polcy created
+json element reference to knw more abt json policy structure
+test_user never give space 
+
+
+Here are some practical use cases for IAM users in AWS, along with examples:
+
+1. Access Management for Team Members
+Use Case: Providing individual access to team members for specific AWS services.
+Example:
+An IAM user is created for a developer named "Alice."
+Alice is given permissions to access the EC2 service for starting and stopping instances but is restricted from modifying security groups.
+2. Fine-Grained Permissions
+Use Case: Restricting access to specific resources for compliance and security.
+Example:
+An IAM user is created for a data analyst.
+The user is given a policy allowing them to access only a specific S3 bucket (example-bucket/data-analytics/) for reading files.
+3. Programmatic Access
+Use Case: Allowing a service or script to interact with AWS resources programmatically.
+Example:
+An IAM user is created for a custom application.
+Programmatic access keys are generated for the user.
+The user is restricted to specific API actions (e.g., DynamoDB:Query and DynamoDB:PutItem).
+4. Temporary Developers or Contractors
+Use Case: Assigning short-term access to contractors or interns.
+Example:
+An IAM user is created for a contractor.
+Access is limited to a specific service (e.g., CodePipeline) and revoked once the project is completed.
+5. Multi-Factor Authentication (MFA)
+Use Case: Enforcing enhanced security for sensitive operations.
+Example:
+An IAM user is created for a finance team member responsible for billing.
+The user is required to use MFA for any changes to billing settings.
+6. Monitoring and Troubleshooting
+Use Case: Assigning read-only permissions for auditing and monitoring.
+Example:
+An IAM user is created for an auditor.
+The ReadOnlyAccess policy is attached, allowing the user to view configurations and logs without making changes.
+7. Backup Management
+Use Case: Managing backups securely using limited permissions.
+Example:
+An IAM user is created for a backup script.
+The script uses the user’s programmatic access keys to:
+Copy data to an S3 bucket.
+Perform lifecycle management (e.g., archival or deletion).
+8. Onboarding New Employees
+Use Case: Assigning personalized access during onboarding.
+Example:
+Each new employee gets an IAM user.
+Permissions are customized based on their role (e.g., developer, admin, tester).
+9. Scheduled Task Automation
+Use Case: Running automated tasks in a secure manner.
+Example:
+An IAM user is created for a nightly Lambda function.
+The user is granted permissions to interact with specific services, like RDS and CloudWatch.
+10. Cross-Account Access Without Roles
+Use Case: Accessing specific resources in another AWS account when roles aren’t possible.
+Example:
+An IAM user is created with restricted permissions.
+The user’s credentials are shared for accessing another account’s S3 bucket or DynamoDB table.
